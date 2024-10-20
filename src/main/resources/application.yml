@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: abc123
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update # makes schema changes to the DB to match hibernate entities
+
+dgs:
+  graphql:
+    schema-locations:
+      - classpath:graphql/schema.graphqls

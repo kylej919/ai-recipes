@@ -1,0 +1,2 @@
+codegen:
+	mvn generate-sources

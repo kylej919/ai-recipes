@@ -1,0 +1,243 @@
+interface Node {
+    id: ID!
+}
+
+type Query {
+    recipe(id: ID!): Recipe
+}
+
+type Mutation {
+    createRecipe: Recipe
+    addIngredientToRecipe(recipeId: ID!, ingredient: String!): Recipe
+    removeIngredientFromRecipe(recipeId: ID!, ingredient: String!): Recipe
+}
+
+
+type Recipe implements Node {
+    id: ID!
+    name: String!
+    ingredients: [Ingredient!]!
+    instructions: [String!]!
+}
+
+union Ingredient = FatWrapper | DairyWrapper | ProteinWrapper | GrainWrapper | VegetableWrapper | FruitWrapper | HerbSpiceWrapper | SauceCondimentWrapper | SweetenerWrapper | BakingIngredientWrapper | NutsAndSeedsWrapper
+
+
+type FatWrapper {
+    fat: Fat!
+}
+
+type DairyWrapper {
+    dairy: Dairy!
+}
+
+type SweetenerWrapper {
+    sweetener: Sweetener!
+}
+
+type ProteinWrapper {
+    protein: Protein!
+}
+
+type GrainWrapper {
+    grain: Grain!
+}
+
+type VegetableWrapper {
+    vegetable: Vegetable!
+}
+
+type FruitWrapper {
+    fruit: Fruit!
+}
+
+type HerbSpiceWrapper {
+    spice: HerbAndSpice!
+}
+
+type SauceCondimentWrapper {
+    sauce: SauceAndCondiment!
+}
+
+type BakingIngredientWrapper {
+    bakingIngredient: BakingIngredient!
+}
+
+type NutsAndSeedsWrapper {
+    nutsAndSeeds: NutsAndSeeds!
+}
+
+
+
+enum Fat {
+    OLIVE_OIL
+    BUTTER
+    COCONUT_OIL
+    VEGETABLE_OIL
+}
+
+enum Dairy {
+    MILK
+    CHEESE
+    YOGURT
+    PLANT_BASED_MILK
+}
+
+
+enum Protein {
+    CHICKEN
+    SALMON
+    STEAK
+    SHRIMP
+    TILAPIA
+    TOFU
+    LAMB
+    TEMPEH
+    BEANS
+    LENTILS
+    CHICKPEAS
+    PORK
+}
+
+enum Grain {
+    RICE
+    QUINOA
+    PASTA
+    BREAD
+    TORTILLA
+    PITA
+    BAGEL
+}
+
+enum Vegetable {
+    BROCCOLI
+    SPINACH
+    KALE
+    CARROTS
+    PEPPERS
+    ZUCCHINI
+    SQUASH
+    ASPARAGUS
+    BRUSSELS_SPROUTS
+    CABBAGE
+    CAULIFLOWER
+    SWEET_POTATO
+    POTATO
+    TOMATO
+    CUCUMBER
+    ONION
+    GARLIC
+    GINGER
+    MUSHROOMS
+}
+
+enum Fruit {
+    APPLE
+    ORANGE
+    BANANA
+    STRAWBERRY
+    BLUEBERRY
+    RASPBERRY
+    BLACKBERRY
+    GRAPE
+    MANGO
+    PINEAPPLE
+    WATERMELON
+    CANTALOUPE
+    PEACH
+    PLUM
+    PEAR
+    CHERRY
+    LEMON
+    LIME
+    GRAPEFRUIT
+    COCONUT
+    AVOCADO
+    POMEGRANATE
+    TANGERINE
+}
+
+enum HerbAndSpice {
+    SALT
+    PEPPER
+    GARLIC_POWDER
+    ONION_POWDER
+    PAPRIKA
+    CUMIN
+    CHILI_POWDER
+    CAYENNE
+    TURMERIC
+    GINGER
+    CINNAMON
+    NUTMEG
+    CLOVES
+    ALLSPICE
+    CORIANDER
+    FENNEL
+    CARDAMOM
+    STAR_ANISE
+    BAY_LEAF
+    OREGANO
+    THYME
+    ROSEMARY
+    SAGE
+    PARSLEY
+    CILANTRO
+    DILL
+    MINT
+    BASIL
+    CHIVES
+    TARRAGON
+    LEMON_GRASS
+    LEMON_ZEST
+    LIME_ZEST
+    ORANGE_ZEST
+    VANILLA
+}
+
+enum SauceAndCondiment {
+    SOY
+    TERIYAKI
+    BBQ
+    KETCHUP
+    MUSTARD
+    MAYO
+    RANCH
+    BLUE_CHEESE
+    BUFFALO
+    SRIRACHA
+}
+
+enum Sweetener {
+    HONEY
+    MAPLE_SYRUP
+    MOLASSES
+    BROWN_SUGAR
+    WHITE_SUGAR
+    POWDERED_SUGAR
+}
+
+enum BakingIngredient {
+    FLOUR
+    BAKING_POWDER
+    BAKING_SODA
+    YEAST
+}
+
+enum NutsAndSeeds {
+    ALMONDS
+    WALNUTS
+    PECANS
+    CASHEWS
+    PISTACHIOS
+    PEANUTS
+    HAZELNUTS
+    MACADAMIA
+    SESAME_SEEDS
+    CHIA_SEEDS
+    FLAXSEEDS
+    PUMPKIN_SEEDS
+    SUNFLOWER_SEEDS
+    POPPY_SEEDS
+    HEMP_SEEDS
+}
