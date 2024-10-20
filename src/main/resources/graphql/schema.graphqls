@@ -3,7 +3,7 @@ interface Node {
 }
 
 type Query {
-    recipe(id: ID!): Recipe
+    getRecipe(id: ID!): Recipe
 }
 
 type Mutation {
@@ -11,7 +11,6 @@ type Mutation {
     addIngredientToRecipe(recipeId: ID!, ingredient: String!): Recipe
     removeIngredientFromRecipe(recipeId: ID!, ingredient: String!): Recipe
 }
-
 
 type Recipe implements Node {
     id: ID!

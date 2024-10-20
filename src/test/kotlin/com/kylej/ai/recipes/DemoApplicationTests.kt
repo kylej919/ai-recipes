@@ -1,4 +1,4 @@
-package com.example.demo
+package com.kylej.ai.recipes
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
