@@ -1,10 +1,10 @@
-package com.kylej.ai.recipes.graphql.client;
+package com.kylej.ai.recipes.graphql.generated.client;
 
 import com.netflix.graphql.dgs.client.codegen.BaseSubProjectionNode;
 import jakarta.annotation.Generated;
 
 @Generated("com.netflix.graphql.dgs.codegen.CodeGen")
-@com.kylej.ai.recipes.graphql.Generated
+@com.kylej.ai.recipes.graphql.generated.Generated
 public class GetRecipeProjectionRoot<PARENT extends BaseSubProjectionNode<?, ?>, ROOT extends BaseSubProjectionNode<?, ?>> extends BaseSubProjectionNode<PARENT, ROOT> {
   public GetRecipeProjectionRoot() {
     super(null, null, java.util.Optional.of("Recipe"));

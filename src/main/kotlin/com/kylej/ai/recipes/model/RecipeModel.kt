@@ -18,8 +18,8 @@ open class RecipeModel {
     val name: String = "NA"
 
     @OneToMany
-    var ingredients: List<IngredientModel> = listOf()
+    var ingredients: MutableList<IngredientModel> = mutableListOf()
 
     @Convert(converter = StringListConverter::class)
-    var instructions: List<String> = listOf()
+    var instructions: MutableList<String> = mutableListOf()
 }

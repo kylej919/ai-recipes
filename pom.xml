@@ -146,7 +146,7 @@
                     </generateIsGetterForPrimitiveBooleanFields>
                     <outputDir>src/main/kotlin/</outputDir>
                     <language>KOTLIN</language>
-                    <packageName>com.kylej.ai.recipes.graphql</packageName>
+                    <packageName>com.kylej.ai.recipes.graphql.generated</packageName>
                     <schemaPaths>src/main/resources/graphql/schema.graphqls</schemaPaths>
                     <typeMapping>
                         <BigDecimal>java.math.BigDecimal</BigDecimal>

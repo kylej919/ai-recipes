@@ -1,4 +1,4 @@
-package com.kylej.ai.recipes.graphql.client;
+package com.kylej.ai.recipes.graphql.generated.client;
 
 import com.netflix.graphql.dgs.client.codegen.GraphQLQuery;
 import jakarta.annotation.Generated;
@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Generated("com.netflix.graphql.dgs.codegen.CodeGen")
-@com.kylej.ai.recipes.graphql.Generated
+@com.kylej.ai.recipes.graphql.generated.Generated
 public class RemoveIngredientGraphQLQuery extends GraphQLQuery {
   public RemoveIngredientGraphQLQuery(String ingredientListId, String ingredient, String queryName,
       Set<String> fieldsSet) {
@@ -34,7 +34,7 @@ public class RemoveIngredientGraphQLQuery extends GraphQLQuery {
   }
 
   @Generated("com.netflix.graphql.dgs.codegen.CodeGen")
-  @com.kylej.ai.recipes.graphql.Generated
+  @com.kylej.ai.recipes.graphql.generated.Generated
   public static class Builder {
     private Set<String> fieldsSet = new HashSet<>();
 

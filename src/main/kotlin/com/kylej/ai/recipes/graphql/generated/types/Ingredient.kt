@@ -1,15 +1,15 @@
-package com.kylej.ai.recipes.graphql.types
+package com.kylej.ai.recipes.graphql.generated.types
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
-import com.kylej.ai.recipes.graphql.Generated as GraphqlGenerated
+import com.kylej.ai.recipes.graphql.generated.Generated as GeneratedGenerated
 import jakarta.`annotation`.Generated as AnnotationGenerated
 
 @AnnotationGenerated(
   value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-  date = "2024-10-20T20:12:42.035642Z",
+  date = "2024-10-20T20:22:57.482506Z",
 )
-@GraphqlGenerated
+@GeneratedGenerated
 public data class Ingredient(
   @JsonProperty("name")
   public val name: String,
@@ -18,8 +18,8 @@ public data class Ingredient(
 ) {
   @AnnotationGenerated(
     value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-    date = "2024-10-20T20:12:42.035642Z",
+    date = "2024-10-20T20:22:57.482506Z",
   )
-  @GraphqlGenerated
+  @GeneratedGenerated
   public companion object
 }
