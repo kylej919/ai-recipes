@@ -1,14 +1,10 @@
 package com.kylej.ai.recipes.controller
 
 import com.kylej.ai.recipes.graphql.config.SCALARS
-import com.kylej.ai.recipes.graphql.generated.client.CreateRecipeGraphQLQuery
-import com.kylej.ai.recipes.graphql.generated.client.CreateRecipeProjectionRoot
-import com.kylej.ai.recipes.graphql.generated.client.GetIngredientsGraphQLQuery
-import com.kylej.ai.recipes.graphql.generated.client.GetIngredientsProjectionRoot
-import com.kylej.ai.recipes.graphql.generated.client.GetRecipeGraphQLQuery
-import com.kylej.ai.recipes.graphql.generated.client.GetRecipeProjectionRoot
+import com.kylej.ai.recipes.graphql.generated.client.*
 import com.kylej.ai.recipes.graphql.generated.types.Ingredient
 import com.kylej.ai.recipes.graphql.generated.types.IngredientCategory
+import com.kylej.ai.recipes.graphql.generated.types.IngredientList
 import com.kylej.ai.recipes.graphql.generated.types.Recipe
 import com.kylej.ai.recipes.util.BaseProjection
 import com.kylej.ai.recipes.util.GraphQLSender
@@ -57,6 +53,18 @@ class RecipeModelControllerIT {
         assertThat(ingredients).contains(Ingredient("Olive Oil", IngredientCategory.FAT))
     }
 
+    @Test
+    fun testAddIngredientSuccess() {
+        val ingredients: IngredientList = addIngredient()
+        assertThat(ingredients).isNotNull()
+    }
+
+    @Test
+    fun testRemoveIngredientSuccess() {
+        val ingredients: IngredientList = removeIngredient()
+        assertThat(ingredients).isNotNull()
+    }
+
     fun getRecipe(): Recipe {
         val projection =
             GetRecipeProjectionRoot<BaseProjection, BaseProjection>().id().instructions().name().ingredients()
@@ -100,5 +108,39 @@ class RecipeModelControllerIT {
             responseClass = Array<Ingredient>::class.java,
             responsePath = "data.getIngredients"
         ).toList()
+    }
+
+    fun addIngredient(): IngredientList {
+        val projection =
+            AddIngredientProjectionRoot<BaseProjection, BaseProjection>().id().ingredients().name().category()
+        val request = GraphQLQueryRequest(
+            AddIngredientGraphQLQuery.newRequest().ingredientListId("1").ingredient("Olive Oil").build(),
+            projection,
+            SCALARS
+        )
+
+        return graphqlSender.mutation(
+            queryRequest = request,
+            headers = headers,
+            responseClass = IngredientList::class.java,
+            responsePath = "data.addIngredient"
+        )
+    }
+
+    fun removeIngredient(): IngredientList {
+        val projection =
+            RemoveIngredientProjectionRoot<BaseProjection, BaseProjection>().id().ingredients().name().category()
+        val request = GraphQLQueryRequest(
+            RemoveIngredientGraphQLQuery.newRequest().ingredientListId("1").ingredient("Olive Oil").build(),
+            projection,
+            SCALARS
+        )
+
+        return graphqlSender.mutation(
+            queryRequest = request,
+            headers = headers,
+            responseClass = IngredientList::class.java,
+            responsePath = "data.removeIngredient"
+        )
     }
 }
