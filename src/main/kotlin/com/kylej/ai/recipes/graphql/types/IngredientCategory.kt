@@ -5,21 +5,27 @@ import jakarta.`annotation`.Generated as AnnotationGenerated
 
 @AnnotationGenerated(
   value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-  date = "2024-10-20T18:06:04.033946Z",
+  date = "2024-10-20T20:12:42.035642Z",
 )
 @GraphqlGenerated
-public enum class Sweetener {
-  HONEY,
-  MAPLE_SYRUP,
-  MOLASSES,
-  BROWN_SUGAR,
-  WHITE_SUGAR,
-  POWDERED_SUGAR,
+public enum class IngredientCategory {
+  FAT,
+  DAIRY,
+  SWEETENER,
+  PROTEIN,
+  GRAIN,
+  VEGETABLE,
+  FRUIT,
+  HERB_SPICE,
+  SAUCE_CONDIMENT,
+  BAKING_INGREDIENT,
+  NUTS_SEEDS,
+  NA,
   ;
 
   @AnnotationGenerated(
     value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-    date = "2024-10-20T18:06:04.033946Z",
+    date = "2024-10-20T20:12:42.035642Z",
   )
   @GraphqlGenerated
   public companion object

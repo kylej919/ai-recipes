@@ -15,19 +15,27 @@ import org.springframework.http.HttpHeaders
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class RecipeControllerIT {
+class RecipeModelControllerIT {
 
     @Autowired
     private lateinit var graphqlSender: GraphQLSender
 
     @Test
     fun testGetRecipe() {
-        val projection = GetRecipeProjectionRoot<BaseProjection, BaseProjection>().id().instructions().name().ingredients().__typename()
-        val request = GraphQLQueryRequest(GetRecipeGraphQLQuery.newRequest().id("1").build(), projection)
+        val projection =
+            GetRecipeProjectionRoot<BaseProjection, BaseProjection>().id().instructions().name().ingredients()
+                .__typename()
+        val request = GraphQLQueryRequest(GetRecipeGraphQLQuery.newRequest().recipeId("1").build(), projection)
+
 
         val headers = HttpHeaders()
         headers.add("Content-Type", "application/json")
-        val recipe: Recipe = graphqlSender.query(queryRequest = request, headers = headers, responseClass = Recipe::class.java, responsePath = "data.getRecipe")
+        val recipe: Recipe = graphqlSender.query(
+            queryRequest = request,
+            headers = headers,
+            responseClass = Recipe::class.java,
+            responsePath = "data.getRecipe"
+        )
         assertThat(recipe).isNotNull()
     }
 

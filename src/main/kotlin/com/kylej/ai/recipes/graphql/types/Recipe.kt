@@ -9,7 +9,7 @@ import jakarta.`annotation`.Generated as AnnotationGenerated
 
 @AnnotationGenerated(
   value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-  date = "2024-10-20T18:06:04.033946Z",
+  date = "2024-10-20T20:12:42.035642Z",
 )
 @GraphqlGenerated
 @JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
@@ -19,13 +19,13 @@ public data class Recipe(
   @JsonProperty("name")
   public val name: String,
   @JsonProperty("ingredients")
-  public val ingredients: List<Ingredient>,
+  public val ingredients: IngredientList,
   @JsonProperty("instructions")
   public val instructions: List<String>,
 ) : Node {
   @AnnotationGenerated(
     value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-    date = "2024-10-20T18:06:04.033946Z",
+    date = "2024-10-20T20:12:42.035642Z",
   )
   @GraphqlGenerated
   public companion object

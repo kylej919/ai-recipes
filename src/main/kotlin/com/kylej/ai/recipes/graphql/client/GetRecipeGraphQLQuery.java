@@ -10,10 +10,10 @@ import java.util.Set;
 @Generated("com.netflix.graphql.dgs.codegen.CodeGen")
 @com.kylej.ai.recipes.graphql.Generated
 public class GetRecipeGraphQLQuery extends GraphQLQuery {
-  public GetRecipeGraphQLQuery(String id, String queryName, Set<String> fieldsSet) {
+  public GetRecipeGraphQLQuery(String recipeId, String queryName, Set<String> fieldsSet) {
     super("query", queryName);
-    if (id != null || fieldsSet.contains("id")) {
-        getInput().put("id", id);
+    if (recipeId != null || fieldsSet.contains("recipeId")) {
+        getInput().put("recipeId", recipeId);
     }
   }
 
@@ -35,18 +35,18 @@ public class GetRecipeGraphQLQuery extends GraphQLQuery {
   public static class Builder {
     private Set<String> fieldsSet = new HashSet<>();
 
-    private String id;
+    private String recipeId;
 
     private String queryName;
 
     public GetRecipeGraphQLQuery build() {
-      return new GetRecipeGraphQLQuery(id, queryName, fieldsSet);
+      return new GetRecipeGraphQLQuery(recipeId, queryName, fieldsSet);
                
     }
 
-    public Builder id(String id) {
-      this.id = id;
-      this.fieldsSet.add("id");
+    public Builder recipeId(String recipeId) {
+      this.recipeId = recipeId;
+      this.fieldsSet.add("recipeId");
       return this;
     }
 

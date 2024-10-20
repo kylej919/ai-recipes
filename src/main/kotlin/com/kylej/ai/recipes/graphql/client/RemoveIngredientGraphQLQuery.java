@@ -9,24 +9,24 @@ import java.util.Set;
 
 @Generated("com.netflix.graphql.dgs.codegen.CodeGen")
 @com.kylej.ai.recipes.graphql.Generated
-public class AddIngredientToRecipeGraphQLQuery extends GraphQLQuery {
-  public AddIngredientToRecipeGraphQLQuery(String recipeId, String ingredient, String queryName,
+public class RemoveIngredientGraphQLQuery extends GraphQLQuery {
+  public RemoveIngredientGraphQLQuery(String ingredientListId, String ingredient, String queryName,
       Set<String> fieldsSet) {
     super("mutation", queryName);
-    if (recipeId != null || fieldsSet.contains("recipeId")) {
-        getInput().put("recipeId", recipeId);
+    if (ingredientListId != null || fieldsSet.contains("ingredientListId")) {
+        getInput().put("ingredientListId", ingredientListId);
     }if (ingredient != null || fieldsSet.contains("ingredient")) {
         getInput().put("ingredient", ingredient);
     }
   }
 
-  public AddIngredientToRecipeGraphQLQuery() {
+  public RemoveIngredientGraphQLQuery() {
     super("mutation");
   }
 
   @Override
   public String getOperationName() {
-    return "addIngredientToRecipe";
+    return "removeIngredient";
   }
 
   public static Builder newRequest() {
@@ -38,20 +38,20 @@ public class AddIngredientToRecipeGraphQLQuery extends GraphQLQuery {
   public static class Builder {
     private Set<String> fieldsSet = new HashSet<>();
 
-    private String recipeId;
+    private String ingredientListId;
 
     private String ingredient;
 
     private String queryName;
 
-    public AddIngredientToRecipeGraphQLQuery build() {
-      return new AddIngredientToRecipeGraphQLQuery(recipeId, ingredient, queryName, fieldsSet);
+    public RemoveIngredientGraphQLQuery build() {
+      return new RemoveIngredientGraphQLQuery(ingredientListId, ingredient, queryName, fieldsSet);
                
     }
 
-    public Builder recipeId(String recipeId) {
-      this.recipeId = recipeId;
-      this.fieldsSet.add("recipeId");
+    public Builder ingredientListId(String ingredientListId) {
+      this.ingredientListId = ingredientListId;
+      this.fieldsSet.add("ingredientListId");
       return this;
     }
 

@@ -15,9 +15,9 @@ public class GetRecipeProjectionRoot<PARENT extends BaseSubProjectionNode<?, ?>,
     return this;
   }
 
-  public IngredientProjection<GetRecipeProjectionRoot<PARENT, ROOT>, GetRecipeProjectionRoot<PARENT, ROOT>> ingredients(
+  public IngredientListProjection<GetRecipeProjectionRoot<PARENT, ROOT>, GetRecipeProjectionRoot<PARENT, ROOT>> ingredients(
       ) {
-    IngredientProjection<GetRecipeProjectionRoot<PARENT, ROOT>, GetRecipeProjectionRoot<PARENT, ROOT>> projection = new IngredientProjection<>(this, this);    
+    IngredientListProjection<GetRecipeProjectionRoot<PARENT, ROOT>, GetRecipeProjectionRoot<PARENT, ROOT>> projection = new IngredientListProjection<>(this, this);    
     getFields().put("ingredients", projection);
     return projection;
   }
