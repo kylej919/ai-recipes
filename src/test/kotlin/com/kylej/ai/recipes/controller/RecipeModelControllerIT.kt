@@ -3,10 +3,12 @@ package com.kylej.ai.recipes.controller
 import com.kylej.ai.recipes.graphql.config.SCALARS
 import com.kylej.ai.recipes.graphql.generated.client.CreateRecipeGraphQLQuery
 import com.kylej.ai.recipes.graphql.generated.client.CreateRecipeProjectionRoot
+import com.kylej.ai.recipes.graphql.generated.client.GetIngredientsGraphQLQuery
+import com.kylej.ai.recipes.graphql.generated.client.GetIngredientsProjectionRoot
 import com.kylej.ai.recipes.graphql.generated.client.GetRecipeGraphQLQuery
 import com.kylej.ai.recipes.graphql.generated.client.GetRecipeProjectionRoot
-import com.kylej.ai.recipes.graphql.generated.client.IngredientListProjection
-import com.kylej.ai.recipes.graphql.generated.client.IngredientProjection
+import com.kylej.ai.recipes.graphql.generated.types.Ingredient
+import com.kylej.ai.recipes.graphql.generated.types.IngredientCategory
 import com.kylej.ai.recipes.graphql.generated.types.Recipe
 import com.kylej.ai.recipes.util.BaseProjection
 import com.kylej.ai.recipes.util.GraphQLSender
@@ -18,9 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpHeaders
+import org.springframework.test.context.jdbc.Sql
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Sql(scripts = ["classpath:sql/ingredient-list.sql"])
 class RecipeModelControllerIT {
 
     @Autowired
@@ -42,8 +46,15 @@ class RecipeModelControllerIT {
     @Test
     fun testCreateRecipeSuccess() {
         val recipe: Recipe = createRecipe()
-
         assertThat(recipe).isNotNull()
+    }
+
+    @Test
+    fun testGetIngredientsSuccess() {
+        val ingredients: List<Ingredient> = getIngredients()
+        assertThat(ingredients).isNotNull()
+        assertThat(ingredients).hasSizeGreaterThan(100)
+        assertThat(ingredients).contains(Ingredient("Olive Oil", IngredientCategory.FAT))
     }
 
     fun getRecipe(): Recipe {
@@ -77,5 +88,17 @@ class RecipeModelControllerIT {
             responseClass = Recipe::class.java,
             responsePath = "data.createRecipe"
         )
+    }
+
+    fun getIngredients(): List<Ingredient> {
+        val projection = GetIngredientsProjectionRoot<BaseProjection, BaseProjection>().name().category()
+        val request = GraphQLQueryRequest(GetIngredientsGraphQLQuery.newRequest().build(), projection, SCALARS)
+
+        return graphqlSender.query(
+            queryRequest = request,
+            headers = headers,
+            responseClass = Array<Ingredient>::class.java,
+            responsePath = "data.getIngredients"
+        ).toList()
     }
 }

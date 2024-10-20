@@ -1,18 +1,27 @@
 package com.kylej.ai.recipes.controller
 
+import com.kylej.ai.recipes.graphql.generated.types.Ingredient
 import com.kylej.ai.recipes.graphql.generated.types.IngredientList
 import com.kylej.ai.recipes.graphql.generated.types.Recipe
+import com.kylej.ai.recipes.service.RecipeService
 import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.QueryMapping
 import org.springframework.stereotype.Controller
 
 @Controller
-class RecipeController {
+class RecipeController(
+    private val recipeService: RecipeService
+) {
 
     @QueryMapping
     fun getRecipe(@Argument recipeId: String): Recipe {
         return Recipe(id = "1", name = "Pasta", ingredients = IngredientList("1", listOf()), instructions = listOf())
+    }
+
+    @QueryMapping
+    fun getIngredients(): List<Ingredient> {
+        return recipeService.getIngredients()
     }
 
     @MutationMapping

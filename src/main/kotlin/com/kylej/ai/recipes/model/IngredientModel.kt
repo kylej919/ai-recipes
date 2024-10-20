@@ -1,7 +1,16 @@
 package com.kylej.ai.recipes.model
 
+import com.kylej.ai.recipes.graphql.generated.types.Ingredient
+import com.kylej.ai.recipes.graphql.generated.types.IngredientCategory
 import jakarta.persistence.*
 import java.util.UUID
+
+fun toIngredient(ingredient: IngredientModel): Ingredient {
+    return Ingredient(
+        name = ingredient.name,
+        category = ingredient.category
+    )
+}
 
 @Entity
 @Table(name = "ingredient")
@@ -15,5 +24,5 @@ open class IngredientModel {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    val category: FoodCategory = FoodCategory.NA
+    val category: IngredientCategory = IngredientCategory.NA
 }

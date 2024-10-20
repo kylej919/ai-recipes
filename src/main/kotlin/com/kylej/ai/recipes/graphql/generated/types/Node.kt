@@ -8,7 +8,7 @@ import jakarta.`annotation`.Generated as AnnotationGenerated
 
 @AnnotationGenerated(
   value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-  date = "2024-10-20T20:22:57.482506Z",
+  date = "2024-10-20T21:27:58.226575Z",
 )
 @GeneratedGenerated
 @JsonTypeInfo(
@@ -25,7 +25,7 @@ public interface Node {
 
   @AnnotationGenerated(
     value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-    date = "2024-10-20T20:22:57.482506Z",
+    date = "2024-10-20T21:27:58.226575Z",
   )
   @GeneratedGenerated
   public companion object

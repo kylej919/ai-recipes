@@ -4,6 +4,7 @@ interface Node {
 
 type Query {
     getRecipe(recipeId: ID!): Recipe
+    getIngredients: [Ingredient!]!
 }
 
 type Mutation {
