@@ -4,7 +4,7 @@ import kotlin.String
 
 @jakarta.`annotation`.Generated(
   value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-  date = "2024-10-20T21:27:58.226575Z",
+  date = "2024-10-20T23:41:31.610123Z",
 )
 @Generated
 public object DgsConstants {
@@ -14,7 +14,7 @@ public object DgsConstants {
 
   @jakarta.`annotation`.Generated(
     value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-    date = "2024-10-20T21:27:58.226575Z",
+    date = "2024-10-20T23:41:31.610123Z",
   )
   @Generated
   public object QUERY {
@@ -26,7 +26,7 @@ public object DgsConstants {
 
     @jakarta.`annotation`.Generated(
       value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-      date = "2024-10-20T21:27:58.226575Z",
+      date = "2024-10-20T23:41:31.610123Z",
     )
     @Generated
     public object GETRECIPE_INPUT_ARGUMENT {
@@ -36,7 +36,7 @@ public object DgsConstants {
 
   @jakarta.`annotation`.Generated(
     value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-    date = "2024-10-20T21:27:58.226575Z",
+    date = "2024-10-20T23:41:31.610123Z",
   )
   @Generated
   public object MUTATION {
@@ -44,13 +44,15 @@ public object DgsConstants {
 
     public const val CreateRecipe: String = "createRecipe"
 
+    public const val StartIngredientSelection: String = "startIngredientSelection"
+
     public const val AddIngredient: String = "addIngredient"
 
     public const val RemoveIngredient: String = "removeIngredient"
 
     @jakarta.`annotation`.Generated(
       value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-      date = "2024-10-20T21:27:58.226575Z",
+      date = "2024-10-20T23:41:31.610123Z",
     )
     @Generated
     public object CREATERECIPE_INPUT_ARGUMENT {
@@ -59,7 +61,7 @@ public object DgsConstants {
 
     @jakarta.`annotation`.Generated(
       value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-      date = "2024-10-20T21:27:58.226575Z",
+      date = "2024-10-20T23:41:31.610123Z",
     )
     @Generated
     public object ADDINGREDIENT_INPUT_ARGUMENT {
@@ -70,7 +72,7 @@ public object DgsConstants {
 
     @jakarta.`annotation`.Generated(
       value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-      date = "2024-10-20T21:27:58.226575Z",
+      date = "2024-10-20T23:41:31.610123Z",
     )
     @Generated
     public object REMOVEINGREDIENT_INPUT_ARGUMENT {
@@ -82,7 +84,7 @@ public object DgsConstants {
 
   @jakarta.`annotation`.Generated(
     value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-    date = "2024-10-20T21:27:58.226575Z",
+    date = "2024-10-20T23:41:31.610123Z",
   )
   @Generated
   public object RECIPE {
@@ -99,7 +101,7 @@ public object DgsConstants {
 
   @jakarta.`annotation`.Generated(
     value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-    date = "2024-10-20T21:27:58.226575Z",
+    date = "2024-10-20T23:41:31.610123Z",
   )
   @Generated
   public object INGREDIENTLIST {
@@ -112,7 +114,7 @@ public object DgsConstants {
 
   @jakarta.`annotation`.Generated(
     value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-    date = "2024-10-20T21:27:58.226575Z",
+    date = "2024-10-20T23:41:31.610123Z",
   )
   @Generated
   public object INGREDIENT {
@@ -125,7 +127,7 @@ public object DgsConstants {
 
   @jakarta.`annotation`.Generated(
     value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-    date = "2024-10-20T21:27:58.226575Z",
+    date = "2024-10-20T23:41:31.610123Z",
   )
   @Generated
   public object NODE {

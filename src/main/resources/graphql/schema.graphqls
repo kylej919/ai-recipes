@@ -9,6 +9,7 @@ type Query {
 
 type Mutation {
     createRecipe(ingredientListId: ID!): Recipe
+    startIngredientSelection: IngredientList
     addIngredient(ingredientListId: ID!, ingredient: String!): IngredientList
     removeIngredient(ingredientListId: ID!, ingredient: String!): IngredientList
 }

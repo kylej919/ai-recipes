@@ -3,37 +3,66 @@ package com.kylej.ai.recipes.service
 import com.kylej.ai.recipes.graphql.generated.types.Ingredient
 import com.kylej.ai.recipes.graphql.generated.types.IngredientList
 import com.kylej.ai.recipes.graphql.generated.types.Recipe
-import com.kylej.ai.recipes.model.RecipeModel
-import com.kylej.ai.recipes.model.toIngredient
-import com.kylej.ai.recipes.repository.IngredientRepository
-import com.kylej.ai.recipes.repository.RecipeRepository
+import com.kylej.ai.recipes.model.*
+import com.kylej.ai.recipes.repository.manager.RecipeRepositoryManager
 import org.springframework.stereotype.Service
-import java.util.Optional
 import java.util.UUID
 
 @Service
 class RecipeService(
-    private val recipeRepository: RecipeRepository,
-    private val ingredientRepository: IngredientRepository
+    private val recipeRepositoryManager: RecipeRepositoryManager
 ) {
 
     fun getRecipe(recipeId: UUID): Recipe {
-        val recipeOptional: Optional<RecipeModel> = recipeRepository.findById(recipeId);
-        val recipe: RecipeModel =
-            recipeOptional.orElseThrow { IllegalArgumentException("Recipe with id ${recipeId} not found") }
-        return Recipe(
-            id = recipe.id.toString(),
-            name = recipe.name,
-            ingredients = IngredientList(
-                id = recipe.id.toString(),
-                ingredients = recipe.ingredients.map { toIngredient(it) }
-            ),
-            instructions = recipe.instructions
-        )
+        val recipe: RecipeModel = recipeRepositoryManager.getRecipeById(recipeId)
+        return toRecipe(recipe)
     }
 
+    /**
+     * Get all ingredients currently in the system.
+     */
     fun getIngredients(): List<Ingredient> {
-        val ingredients = ingredientRepository.findAll()
+        val ingredients = recipeRepositoryManager.findAllIngredients()
         return ingredients.stream().map { toIngredient(it) }.toList()
+    }
+
+    /**
+     * Start the ingredient selection process by creating a new ingredient list.
+     */
+    fun startIngredientSelection(): IngredientList {
+        return toIngredientsList(recipeRepositoryManager.saveIngredientList(IngredientListModel()))
+    }
+
+    /**
+     * Add an ingredient with the provided name to the ingredient list with the provided id.
+     */
+    fun addIngredient(ingredientListId: UUID, ingredientName: String): IngredientList {
+        val ingredientList = recipeRepositoryManager.getIngredientListById(ingredientListId)
+        val ingredient: IngredientModel = recipeRepositoryManager.getIngredientByName(ingredientName)
+
+        ingredientList.ingredients.add(ingredient)
+        return toIngredientsList(recipeRepositoryManager.saveIngredientList(ingredientList))
+    }
+
+    /**
+     * Remove an ingredient with the provided name from the ingredient list with the provided id.
+     */
+    fun removeIngredient(listId: UUID, ingredient: String): IngredientList {
+        val ingredientList = recipeRepositoryManager.getIngredientListById(listId)
+        val ingredientModel = recipeRepositoryManager.getIngredientByName(ingredient)
+
+        val result = ingredientList.ingredients.remove(ingredientModel)
+        require(result) { "Ingredient with name $ingredient not found in list with id $listId" }
+
+        return toIngredientsList(recipeRepositoryManager.saveIngredientList(ingredientList))
+    }
+
+    fun createRecipe(ingredientListId: UUID): Recipe {
+        val ingredientList = recipeRepositoryManager.getIngredientListById(ingredientListId)
+        val recipe = RecipeModel()
+        recipe.ingredientList = ingredientList
+
+        // TODO: Add instructions and name to the recipe
+        return toRecipe(recipeRepositoryManager.saveRecipe(recipe))
     }
 }

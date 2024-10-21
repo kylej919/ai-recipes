@@ -5,7 +5,7 @@ import jakarta.`annotation`.Generated as AnnotationGenerated
 
 @AnnotationGenerated(
   value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-  date = "2024-10-20T21:27:58.226575Z",
+  date = "2024-10-20T23:41:31.610123Z",
 )
 @GeneratedGenerated
 public enum class IngredientCategory {
@@ -25,7 +25,7 @@ public enum class IngredientCategory {
 
   @AnnotationGenerated(
     value = ["com.netflix.graphql.dgs.codegen.CodeGen"],
-    date = "2024-10-20T21:27:58.226575Z",
+    date = "2024-10-20T23:41:31.610123Z",
   )
   @GeneratedGenerated
   public companion object
