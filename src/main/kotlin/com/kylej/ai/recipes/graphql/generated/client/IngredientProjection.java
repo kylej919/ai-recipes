@@ -21,6 +21,11 @@ public class IngredientProjection<PARENT extends BaseSubProjectionNode<?, ?>, RO
      return projection;
   }
 
+  public IngredientProjection<PARENT, ROOT> id() {
+    getFields().put("id", null);
+    return this;
+  }
+
   public IngredientProjection<PARENT, ROOT> name() {
     getFields().put("name", null);
     return this;

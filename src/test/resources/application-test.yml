@@ -1,0 +1,7 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update # makes schema changes to the DB to match hibernate entities
+    properties:
+      hibernate:
+        default_schema: test

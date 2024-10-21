@@ -18,6 +18,6 @@ open class IngredientListModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     open var id: UUID = UUID.randomUUID()
 
-    @OneToMany
+    @ManyToMany
     var ingredients: MutableList<IngredientModel> = mutableListOf()
 }

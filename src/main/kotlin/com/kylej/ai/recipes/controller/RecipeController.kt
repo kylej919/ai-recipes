@@ -73,6 +73,6 @@ class RecipeController(
      */
     private fun getId(nodeId: String): UUID {
         val idSegments: List<String> = nodeId.split("_")
-        return UUID.fromString(idSegments[1])
+        return UUID.fromString(idSegments[idSegments.lastIndex])
     }
 }

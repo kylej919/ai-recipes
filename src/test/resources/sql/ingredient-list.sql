@@ -1,10 +1,10 @@
-CREATE TABLE IF NOT EXISTS ingredient (
+CREATE TABLE IF NOT EXISTS test.ingredient (
                                           id UUID PRIMARY KEY,
                                           name TEXT NOT NULL UNIQUE,
                                           category TEXT
 );
 
-INSERT INTO ingredient (id, name, category) VALUES
+INSERT INTO test.ingredient (id, name, category) VALUES
 (gen_random_uuid(), 'Olive Oil', 'FAT'),
 (gen_random_uuid(), 'Butter', 'FAT'),
 (gen_random_uuid(), 'Coconut Oil', 'FAT'),

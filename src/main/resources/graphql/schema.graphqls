@@ -26,7 +26,8 @@ type IngredientList implements Node {
     ingredients: [Ingredient!]!
 }
 
-type Ingredient {
+type Ingredient implements Node{
+    id: ID!
     name: String!
     category: IngredientCategory!
 }

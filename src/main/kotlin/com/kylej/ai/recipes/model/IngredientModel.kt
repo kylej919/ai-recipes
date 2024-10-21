@@ -7,6 +7,7 @@ import java.util.UUID
 
 fun toIngredient(ingredient: IngredientModel): Ingredient {
     return Ingredient(
+        id = "ingredient_${ingredient.id}",
         name = ingredient.name,
         category = ingredient.category
     )
