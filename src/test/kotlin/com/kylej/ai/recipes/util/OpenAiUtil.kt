@@ -1,6 +1,6 @@
 package com.kylej.ai.recipes.util
 
-val CHAT_GPT_RESPONSE = """
+const val CHAT_GPT_RESPONSE = """
     ```json
     {
       "name": "Garlic Butter Steak",

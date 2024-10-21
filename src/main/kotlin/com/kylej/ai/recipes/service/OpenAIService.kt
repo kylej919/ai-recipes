@@ -3,7 +3,6 @@ package com.kylej.ai.recipes.service
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.kylej.ai.recipes.model.IngredientListModel
 import com.kylej.ai.recipes.service.entity.RecipeResponse
-import org.springframework.ai.chat.client.ChatClient
 import org.springframework.ai.openai.OpenAiChatModel
 import org.springframework.stereotype.Service
 
@@ -17,14 +16,11 @@ class OpenAIService(
      * Create a recipe using the given ingredients by calling the OpenAI chat model
      */
     fun createRecipeInstructions(ingredientList: IngredientListModel): RecipeResponse {
-//        chatClient.prompt()
-//            .user(getPromptString(ingredientList))
-//            .call()
-//            .content()
         var responseString = chatModel.call(getPromptString(ingredientList))
         responseString.indexOfFirst { it == '{' }
         responseString.indexOfLast { it == '}' }
-        responseString = responseString.substring(responseString.indexOfFirst { it == '{' }, responseString.indexOfLast { it == '}' } + 1)
+        responseString = responseString.substring(responseString.indexOfFirst { it == '{' },
+            responseString.indexOfLast { it == '}' } + 1)
 
         return objectMapper.readValue(responseString, RecipeResponse::class.java)
     }

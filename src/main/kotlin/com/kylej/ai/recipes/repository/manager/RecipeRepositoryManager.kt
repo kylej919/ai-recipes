@@ -19,16 +19,16 @@ class RecipeRepositoryManager(
     fun findAllIngredients(): List<IngredientModel> = ingredientRepository.findAll()
 
     fun getIngredientByName(name: String): IngredientModel =
-        requireNotNull(ingredientRepository.findByName(name), { "Ingredient with name $name not found" })
+        requireNotNull(ingredientRepository.findByName(name)) { "Ingredient with name $name not found" }
 
     fun getRecipeById(id: UUID): RecipeModel =
-        requireNotNull(recipeRepository.find(id), { "Recipe with id $id not found" })
+        requireNotNull(recipeRepository.find(id)) { "Recipe with id $id not found" }
 
     fun saveIngredientList(ingredientList: IngredientListModel): IngredientListModel =
         ingredientListRepository.save(ingredientList)
 
     fun getIngredientListById(id: UUID): IngredientListModel =
-        requireNotNull(ingredientListRepository.findById(id), { "Ingredient list with id $id not found" })
+        requireNotNull(ingredientListRepository.findById(id)) { "Ingredient list with id $id not found" }
 
     fun saveRecipe(recipe: RecipeModel): RecipeModel = recipeRepository.save(recipe)
 }

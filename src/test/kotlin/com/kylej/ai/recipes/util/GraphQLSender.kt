@@ -52,7 +52,7 @@ class GraphQLSender(
         responseClass: Class<T>,
         responsePath: String
     ): T {
-        val operation = queryRequest.query.operation;
+        val operation = queryRequest.query.operation
         val capitalized = operation[0].uppercaseChar() + operation.substring(1)
         val query = "query $capitalized ${queryRequest.serialize()}"
         return query(query, headers, responseClass, responsePath)
