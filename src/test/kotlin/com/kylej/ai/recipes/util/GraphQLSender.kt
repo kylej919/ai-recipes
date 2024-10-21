@@ -9,11 +9,10 @@ import org.springframework.stereotype.Service
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 
-private val objectMapper = ObjectMapper()
-
 @Service
 class GraphQLSender(
-    private val mockMvc: MockMvc
+    private val mockMvc: MockMvc,
+    private val objectMapper: ObjectMapper
 ) {
 
     fun <T> query(query: String, headers: HttpHeaders, responseClass: Class<T>, responsePath: String): T {

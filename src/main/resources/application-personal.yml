@@ -1,11 +1,5 @@
 spring:
-  ai:
-    openai:
-      api-key: "enter-key-here"
-      chat:
-        options:
-          model: "gpt-3.5-turbo"
-          temperature: 0.5
+
   datasource:
     driver-class-name: org.postgresql.Driver
     password: abc123
