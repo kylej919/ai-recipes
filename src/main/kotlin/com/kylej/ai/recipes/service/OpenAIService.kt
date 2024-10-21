@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service
 @Service
 class OpenAIService(
     private val chatModel: OpenAiChatModel,
-    private val chatClient: ChatClient,
     private val objectMapper: ObjectMapper
 ) {
 
@@ -18,11 +17,15 @@ class OpenAIService(
      * Create a recipe using the given ingredients by calling the OpenAI chat model
      */
     fun createRecipeInstructions(ingredientList: IngredientListModel): RecipeResponse {
-        chatClient.prompt()
-            .user(getPromptString(ingredientList))
-            .call()
-            .content()
-        val responseString = chatModel.call(getPromptString(ingredientList))
+//        chatClient.prompt()
+//            .user(getPromptString(ingredientList))
+//            .call()
+//            .content()
+        var responseString = chatModel.call(getPromptString(ingredientList))
+        responseString.indexOfFirst { it == '{' }
+        responseString.indexOfLast { it == '}' }
+        responseString = responseString.substring(responseString.indexOfFirst { it == '{' }, responseString.indexOfLast { it == '}' } + 1)
+
         return objectMapper.readValue(responseString, RecipeResponse::class.java)
     }
 

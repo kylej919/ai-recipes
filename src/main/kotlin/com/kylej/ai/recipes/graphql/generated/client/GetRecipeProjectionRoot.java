@@ -36,4 +36,9 @@ public class GetRecipeProjectionRoot<PARENT extends BaseSubProjectionNode<?, ?>,
     getFields().put("instructions", null);
     return this;
   }
+
+  public GetRecipeProjectionRoot<PARENT, ROOT> article() {
+    getFields().put("article", null);
+    return this;
+  }
 }

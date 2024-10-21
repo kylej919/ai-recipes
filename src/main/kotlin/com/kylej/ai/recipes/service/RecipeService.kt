@@ -66,6 +66,7 @@ class RecipeService(
         recipe.name = recipeResponse.name
         recipe.ingredientList = ingredientList
         recipe.instructions = recipeResponse.instructions.toMutableList()
+        recipe.article = recipeResponse.article
 
         return toRecipe(recipeRepositoryManager.saveRecipe(recipe))
     }

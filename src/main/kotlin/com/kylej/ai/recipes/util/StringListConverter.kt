@@ -9,10 +9,10 @@ import jakarta.persistence.Converter
 @Converter
 class StringListConverter : AttributeConverter<List<String>, String> {
     override fun convertToDatabaseColumn(stringList: List<String>): String {
-        return stringList.joinToString(",")
+        return stringList.joinToString("|")
     }
 
     override fun convertToEntityAttribute(dbData: String): List<String> {
-        return dbData.split(",")
+        return dbData.split("|")
     }
 }

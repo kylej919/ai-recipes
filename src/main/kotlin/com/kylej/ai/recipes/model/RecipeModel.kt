@@ -14,7 +14,8 @@ fun toRecipe(recipe: RecipeModel): Recipe {
         id = "recipe_${recipe.id}",
         name = recipe.name,
         ingredients = toIngredientsList(recipe.ingredientList),
-        instructions = recipe.instructions
+        instructions = recipe.instructions,
+        article = recipe.article
     )
 }
 
@@ -29,13 +30,18 @@ open class RecipeModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     open var id: UUID = UUID.randomUUID()
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     var name: String = "NA"
 
     @OneToOne
     var ingredientList: IngredientListModel = IngredientListModel()
 
     @Convert(converter = StringListConverter::class)
+    @Column(columnDefinition = "TEXT", nullable = false)
     var instructions: MutableList<String> = mutableListOf()
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    var article: String = ""
 
     @CreationTimestamp
     var createdAt: Timestamp = Timestamp.from(Instant.now())

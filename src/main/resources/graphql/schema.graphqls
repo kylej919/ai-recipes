@@ -19,6 +19,7 @@ type Recipe implements Node {
     name: String!
     ingredients: IngredientList!
     instructions: [String!]!
+    article: String!
 }
 
 type IngredientList implements Node {

@@ -8,25 +8,29 @@ import com.kylej.ai.recipes.graphql.generated.types.Recipe
 import com.kylej.ai.recipes.model.toIngredient
 import com.kylej.ai.recipes.repository.manager.RecipeRepositoryManager
 import com.kylej.ai.recipes.util.BaseProjection
+import com.kylej.ai.recipes.util.CHAT_GPT_RESPONSE
 import com.kylej.ai.recipes.util.GraphQLSender
 import com.netflix.graphql.dgs.client.codegen.GraphQLQueryRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.anyString
+import org.mockito.Mockito.`when`
+import org.springframework.ai.openai.OpenAiChatModel
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.HttpHeaders
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.jdbc.Sql
 import java.util.*
 
-@ActiveProfiles(profiles = ["test","personal"])
+@ActiveProfiles(profiles = ["test", "personal"])
 @SpringBootTest
 @AutoConfigureMockMvc
 @Sql(scripts = ["classpath:sql/ingredient-list.sql"])
-class RecipeModelControllerIT {
+class RecipeControllerIT {
 
     @Autowired
     private lateinit var graphqlSender: GraphQLSender
@@ -34,8 +38,8 @@ class RecipeModelControllerIT {
     @Autowired
     private lateinit var recipeRepositoryManager: RecipeRepositoryManager
 
-    @Value("\${spring.ai.openai.api-key}")
-    val token: String = ""
+    @MockBean
+    private lateinit var chatModel: OpenAiChatModel
 
     var headers: HttpHeaders = HttpHeaders()
 
@@ -44,17 +48,6 @@ class RecipeModelControllerIT {
         headers.add("Content-Type", "application/json")
     }
 
-    @Test
-    fun testGetRecipeSuccess() {
-        val recipe: Recipe = getRecipe()
-        assertThat(recipe).isNotNull()
-    }
-
-//    @Test
-//    fun testCreateRecipeSuccess() {
-//        val recipe: Recipe = createRecipe()
-//        assertThat(recipe).isNotNull()
-//    }
 
     @Test
     fun testGetIngredientsSuccess() {
@@ -63,20 +56,11 @@ class RecipeModelControllerIT {
         assertThat(ingredients).hasSizeGreaterThan(100)
     }
 
-//    @Test
-//    fun testAddIngredientSuccess() {
-//        val ingredients: IngredientList = addIngredient()
-//        assertThat(ingredients).isNotNull()
-//    }
-
-//    @Test
-//    fun testRemoveIngredientSuccess() {
-//        val ingredients: IngredientList = removeIngredient()
-//        assertThat(ingredients).isNotNull()
-//    }
 
     @Test
     fun testUserFlowSuccess() {
+        `when`(chatModel.call(anyString())).thenReturn(CHAT_GPT_RESPONSE)
+
         var ingredients: IngredientList = startIngredientSelection()
         assertThat(ingredients).isNotNull()
         assertThat(ingredients.ingredients).isEmpty()
@@ -104,18 +88,21 @@ class RecipeModelControllerIT {
 
         var recipe: Recipe = createRecipe(ingredients.id)
         assertThat(recipe).isNotNull()
-        assertThat(recipe.ingredients.ingredients).isEqualTo(ingredients).hasSizeGreaterThan(1)
+        assertThat(recipe.ingredients.ingredients).hasSizeGreaterThan(1)
         assertThat(recipe.name).isNotBlank().isNotNull()
+        assertThat(recipe.article).isNotBlank().isNotNull()
 
-        recipe = getRecipe()
+        recipe = getRecipe(recipe.id)
         assertThat(recipe).isNotNull()
     }
 
-    fun getRecipe(): Recipe {
+    fun getRecipe(recipeId: String): Recipe {
         val projection =
-            GetRecipeProjectionRoot<BaseProjection, BaseProjection>().id().instructions().name().ingredients()
+            GetRecipeProjectionRoot<BaseProjection, BaseProjection>().id().instructions().article().name()
                 .__typename()
-        val request = GraphQLQueryRequest(GetRecipeGraphQLQuery.newRequest().recipeId("1").build(), projection, SCALARS)
+        projection.ingredients().id().ingredients().id().name().category()
+        val request =
+            GraphQLQueryRequest(GetRecipeGraphQLQuery.newRequest().recipeId(recipeId).build(), projection, SCALARS)
 
         return graphqlSender.query(
             queryRequest = request,
@@ -127,8 +114,9 @@ class RecipeModelControllerIT {
 
     fun createRecipe(ingredientListId: String): Recipe {
         val projection =
-            CreateRecipeProjectionRoot<BaseProjection, BaseProjection>().id().instructions().name().ingredients()
-        projection.id().ingredients().name().category()
+            CreateRecipeProjectionRoot<BaseProjection, BaseProjection>().id().instructions().article().name()
+                .ingredients()
+        projection.id().ingredients().id().name().category()
         val request =
             GraphQLQueryRequest(
                 CreateRecipeGraphQLQuery.newRequest().ingredientListId(ingredientListId).build(),
@@ -160,7 +148,8 @@ class RecipeModelControllerIT {
         val projection =
             AddIngredientProjectionRoot<BaseProjection, BaseProjection>().id().ingredients().id().name().category()
         val request = GraphQLQueryRequest(
-            AddIngredientGraphQLQuery.newRequest().ingredientListId(ingredientListId).ingredient(ingredient.name).build(),
+            AddIngredientGraphQLQuery.newRequest().ingredientListId(ingredientListId).ingredient(ingredient.name)
+                .build(),
             projection,
             SCALARS
         )
@@ -177,7 +166,8 @@ class RecipeModelControllerIT {
         val projection =
             RemoveIngredientProjectionRoot<BaseProjection, BaseProjection>().id().ingredients().id().name().category()
         val request = GraphQLQueryRequest(
-            RemoveIngredientGraphQLQuery.newRequest().ingredientListId(ingredientListId).ingredient(ingredient.name).build(),
+            RemoveIngredientGraphQLQuery.newRequest().ingredientListId(ingredientListId).ingredient(ingredient.name)
+                .build(),
             projection,
             SCALARS
         )
