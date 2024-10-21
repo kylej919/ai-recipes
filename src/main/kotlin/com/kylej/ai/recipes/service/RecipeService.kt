@@ -6,11 +6,12 @@ import com.kylej.ai.recipes.graphql.generated.types.Recipe
 import com.kylej.ai.recipes.model.*
 import com.kylej.ai.recipes.repository.manager.RecipeRepositoryManager
 import org.springframework.stereotype.Service
-import java.util.UUID
+import java.util.*
 
 @Service
 class RecipeService(
-    private val recipeRepositoryManager: RecipeRepositoryManager
+    private val recipeRepositoryManager: RecipeRepositoryManager,
+    private val openAIService: OpenAIService
 ) {
 
     fun getRecipe(recipeId: UUID): Recipe {
@@ -59,10 +60,13 @@ class RecipeService(
 
     fun createRecipe(ingredientListId: UUID): Recipe {
         val ingredientList = recipeRepositoryManager.getIngredientListById(ingredientListId)
-        val recipe = RecipeModel()
-        recipe.ingredientList = ingredientList
+        val recipeResponse = openAIService.createRecipeInstructions(ingredientList)
 
-        // TODO: Add instructions and name to the recipe
+        val recipe = RecipeModel()
+        recipe.name = recipeResponse.name
+        recipe.ingredientList = ingredientList
+        recipe.instructions = recipeResponse.instructions.toMutableList()
+
         return toRecipe(recipeRepositoryManager.saveRecipe(recipe))
     }
 }

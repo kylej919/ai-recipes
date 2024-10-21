@@ -47,7 +47,7 @@ class RecipeController(
      */
     @MutationMapping
     fun createRecipe(@Argument ingredientListId: String): Recipe {
-        return Recipe(id = "1", name = "Pasta", ingredients = IngredientList("1", listOf()), instructions = listOf())
+        return recipeService.createRecipe(getId(ingredientListId))
     }
 
     /**
